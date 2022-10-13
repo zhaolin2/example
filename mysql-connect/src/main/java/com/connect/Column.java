@@ -15,4 +15,55 @@ public class Column {
         this.dataType = dataType;
         this.inx = idx;
     }
+
+    public int getInx() {
+        return inx;
+    }
+
+    public void setInx(int inx) {
+        this.inx = inx;
+    }
+
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getSchema() {
+        return schema;
+    }
+
+    public void setSchema(String schema) {
+        this.schema = schema;
+    }
+
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    @Override
+    public String toString() {
+        return "Column{" +
+                "inx=" + inx +
+                ", colName='" + colName + '\'' +
+                ", dataType='" + dataType + '\'' +
+                ", schema='" + schema + '\'' +
+                ", table='" + table + '\'' +
+                '}';
+    }
 }

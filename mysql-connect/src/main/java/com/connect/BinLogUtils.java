@@ -48,6 +48,7 @@ public abstract class BinLogUtils {
                     map.put(column, new Column(schema, tableName, idx - 1, column, dataType)); // sql的位置从1开始
                 }
             }
+            System.out.println("获取到表信息,map:"+map);
             ps.close();
             rs.close();
             return map;

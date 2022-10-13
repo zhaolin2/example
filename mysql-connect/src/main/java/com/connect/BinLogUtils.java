@@ -1,6 +1,7 @@
 package com.connect;
 
 import com.github.shyiko.mysql.binlog.event.EventType;
+import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -12,14 +13,8 @@ import java.util.Date;
 
 import static com.github.shyiko.mysql.binlog.event.EventType.isUpdate;
 
-public class BinLogUtils {
+public abstract class BinLogUtils {
 
-//    private SearchStoreLogoExtMapper searchStoreLogoExtMapper;
-
-    public void init() {
-//        binLogUtils = this;
-//        binLogUtils.searchStoreLogoExtMapper = this.searchStoreLogoExtMapper;
-    }
 
     /**
      * 拼接dbTable
@@ -111,8 +106,7 @@ public class BinLogUtils {
         if (StringUtils.isEmpty(str)) {
             return new ArrayList<>();
         }
-
-        return Arrays.asList(str.split(","));
+        return Splitter.on(",").splitToList(str);
     }
 
     /**

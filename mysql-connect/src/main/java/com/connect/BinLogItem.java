@@ -1,10 +1,16 @@
 package com.connect;
 
 import com.github.shyiko.mysql.binlog.event.EventType;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.github.shyiko.mysql.binlog.event.EventType.isWrite;
 
@@ -20,6 +26,10 @@ public class BinLogItem {
     private Map<String, Serializable> after = null;
     // 存储字段--类型
     private Map<String, Column> colums = null;
+
+
+    private Map<String, String> beforeMap = null;
+    private Map<String, String> afterMap = null;
 
     /**
      * 新增或者删除操作数据格式化
@@ -84,7 +94,35 @@ public class BinLogItem {
 
         item.before = be;
         item.after = af;
+
+        Map<String, String> beforeMap = item.before.entrySet().stream()
+                .map(entry -> Pair.of(entry.getKey(), serialToString(entry.getValue())))
+                .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+        item.beforeMap=beforeMap;
+
+        System.out.println("item.beforeMap:"+beforeMap);
+
+        Map<String, String> afterMap = item.after.entrySet().stream()
+                .map(entry -> Pair.of(entry.getKey(), serialToString(entry.getValue())))
+                .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+        item.afterMap=afterMap;
+        System.out.println("item.beforeMap:"+afterMap);
+
         return item;
+    }
+
+    static public String serialToString(Serializable serializable){
+        if (Objects.isNull(serializable)){
+            return "";
+        }
+        if (serializable instanceof  byte[]){
+            byte[] bytes = (byte[]) serializable;
+            return new String(bytes);
+        }else {
+            System.out.println("serialable.class:"+serializable.getClass());
+            System.out.println("serialable:"+serializable);
+        }
+        return String.valueOf(serializable);
     }
 
     public String getDbTable() {
@@ -141,5 +179,18 @@ public class BinLogItem {
 
     public void setColums(Map<String, Column> colums) {
         this.colums = colums;
+    }
+
+    @Override
+    public String toString() {
+        return "BinLogItem{" +
+                "dbTable='" + dbTable + '\'' +
+                ", eventType=" + eventType +
+                ", timestamp=" + timestamp +
+                ", serverId=" + serverId +
+                ", before=" + before +
+                ", after=" + after +
+                ", colums=" + colums +
+                '}';
     }
 }

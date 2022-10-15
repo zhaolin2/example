@@ -22,7 +22,7 @@ public class EventListenerImpl implements BinaryLogClient.EventListener {
     private BinaryLogClient parseClient;
 
     private BlockingQueue<BinLogItem> queue;
-    private final ExecutorService consumer = MoreExecutors.newDirectExecutorService();
+    private final ExecutorService consumer = Executors.newFixedThreadPool(5);
 
     // 存放每张数据表对应的listener
     private Multimap<String, BinaryLogClient.EventListener> listeners;
@@ -74,6 +74,7 @@ public class EventListenerImpl implements BinaryLogClient.EventListener {
                     if (dbTableCols.containsKey(dbTable)) {
                         BinLogItem item = BinLogItem.itemFromInsertOrDeleted(row, dbTableCols.get(dbTable), eventType);
                         item.setDbTable(dbTable);
+                        System.out.println("writeItem:"+item);
                         queue.add(item);
                     }
                 }
@@ -85,6 +86,7 @@ public class EventListenerImpl implements BinaryLogClient.EventListener {
                     if (dbTableCols.containsKey(dbTable)) {
                         BinLogItem item = BinLogItem.itemFromUpdate(row, dbTableCols.get(dbTable), eventType);
                         item.setDbTable(dbTable);
+                        System.out.println("updateItem:"+item);
                         queue.add(item);
                     }
                 }
@@ -97,6 +99,7 @@ public class EventListenerImpl implements BinaryLogClient.EventListener {
                     if (dbTableCols.containsKey(dbTable)) {
                         BinLogItem item = BinLogItem.itemFromInsertOrDeleted(row, dbTableCols.get(dbTable), eventType);
                         item.setDbTable(dbTable);
+                        System.out.println("deleteItem:"+item);
                         queue.add(item);
                     }
                 }
@@ -137,6 +140,7 @@ public class EventListenerImpl implements BinaryLogClient.EventListener {
                         try {
                             BinLogItem item = queue.take();
                             String dbtable = item.getDbTable();
+                            System.out.println("从queu中获取到item,item"+item+",dbTable:"+dbtable);
 //                            listeners.get(dbtable).forEach(binLogListener -> binLogListener.onEvent(item.getEventType()));
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -148,6 +152,8 @@ public class EventListenerImpl implements BinaryLogClient.EventListener {
                 }
             });
         }
+
+
         parseClient.connect();
     }
 }

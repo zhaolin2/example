@@ -7,13 +7,13 @@ public class AsyncCompose {
         // 生成第一个节点
         Future.succeededFuture("Lang")
                 // 打招呼
-                .compose(io.vertx.up._02.async.AsyncCompose::sayHi)
+                .compose(AsyncCompose::sayHi)
                 // 再打招呼
-                .compose(lang -> io.vertx.up._02.async.AsyncCompose.sayHi("Hi", lang))
+                .compose(lang -> AsyncCompose.sayHi("Hi", lang))
                 // 切换人打招呼
-                .compose(nil -> io.vertx.up._02.async.AsyncCompose.sayHi("Han"))
+                .compose(nil -> AsyncCompose.sayHi("Han"))
                 // 再打招呼
-                .compose(han -> io.vertx.up._02.async.AsyncCompose.sayHi("Hello", han));
+                .compose(han -> AsyncCompose.sayHi("Hello", han));
     }
 
     private static Future<String> sayHi(final String prefix, final String name) {

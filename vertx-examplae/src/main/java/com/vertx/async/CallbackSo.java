@@ -6,7 +6,6 @@ import io.vertx.core.Handler;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
 import io.vertx.up.runtime.Runner;
-import io.vertx.up.unity.Ux;
 
 /**
  * @author <a href="http://www.origin-x.cn">lang</a>
@@ -14,7 +13,8 @@ import io.vertx.up.unity.Ux;
 public class CallbackSo {
 
     public static void main(final String[] args) {
-        hiJson2("name").compose(Ux::debug);
+        hiJson2("name");
+//                .compose(Ux::debug);
     }
 
     /*

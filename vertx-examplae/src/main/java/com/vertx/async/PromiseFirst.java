@@ -13,7 +13,7 @@ public class PromiseFirst {
          * 构造一个 Future
          * @Deprecated
          */
-        final Future<String> future1 = Future.future();
+//        final Future<String> future1 = Future.future();
 
         /*
          * 构造一个 Future
@@ -38,13 +38,13 @@ public class PromiseFirst {
         System.out.println(failure);
 
         // ------------ Future 三态 --------------
-        final Future<String> f1 = Future.future();
-        final Future<String> f2 = Future.future();
-        System.out.println(f1);
-        System.out.println(f2);
-        f1.complete("Ok!");
-        f2.fail("Ko!");
-        System.out.println(f1);
-        System.out.println(f2);
+//        final Future<String> f1 = Future.future();
+//        final Future<String> f2 = Future.future();
+//        System.out.println(f1);
+//        System.out.println(f2);
+//        f1.complete("Ok!");
+//        f2.fail("Ko!");
+//        System.out.println(f1);
+//        System.out.println(f2);
     }
 }

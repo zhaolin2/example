@@ -1,0 +1,6 @@
+--调用module的方法
+resty -I module/ -e 'require "test".greet()
+
+
+resty --shdict 'dict 5m'  -e 'print(ngx.shared.dict)'
+userdata: 0x01008fb6e0

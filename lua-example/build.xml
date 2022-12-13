@@ -8,7 +8,7 @@
     <property name="src" location="${basedir}/lua"/>
 
     <property name="target-conf" location="${openresty-home}/conf"/>
-    <property name="target-src" location="${openresty-home}/lua/${ant.project.name}"/>
+    <property name="target-src" location="${openresty-home}/lua"/>
 
     <echo>######开发版本的ant配置#####</echo>
     <target name="clean" depends="">

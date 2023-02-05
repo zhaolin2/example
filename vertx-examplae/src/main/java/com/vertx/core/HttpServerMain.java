@@ -32,7 +32,7 @@ public class HttpServerMain extends AbstractVerticle {
 
             HttpServerResponse response = reuqest.response();
 
-            if (reuqest.method().equals(HttpMethod.PUT)){
+            if (reuqest.method().equals(HttpMethod.PUT) || reuqest.method().equals(HttpMethod.GET)){
                 response.send(reuqest);
                 response.setStatusCode(200).send("OK");
             }else if (reuqest.method().equals(HttpMethod.POST)){

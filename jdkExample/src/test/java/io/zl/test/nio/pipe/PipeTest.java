@@ -1,4 +1,4 @@
-package io.zl.test.pipe;
+package io.zl.test.nio.pipe;
 
 import org.junit.Test;
 

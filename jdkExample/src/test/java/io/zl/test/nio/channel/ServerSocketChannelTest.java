@@ -1,4 +1,4 @@
-package io.zl.test.channel;
+package io.zl.test.nio.channel;
 
 import org.junit.Test;
 
@@ -7,7 +7,6 @@ import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
-import java.nio.file.StandardOpenOption;
 
 public class ServerSocketChannelTest {
 

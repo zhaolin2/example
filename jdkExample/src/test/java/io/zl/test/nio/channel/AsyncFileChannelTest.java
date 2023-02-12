@@ -1,4 +1,4 @@
-package io.zl.test.channel;
+package io.zl.test.nio.channel;
 
 import org.junit.Test;
 

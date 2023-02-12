@@ -1,12 +1,10 @@
-package io.zl.test.buffer;
+package io.zl.test.nio.buffer;
 
 import org.junit.Test;
-import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Logger;
 
 /**
  * position和limit取决于当前模式是读模式还是还是写模式

@@ -4,8 +4,8 @@
     </description>
     <!-- set global properties for this build -->
     <property name="openresty-home" location="/opt/homebrew/etc/openresty"/>
-    <property name="conf" location="${basedir}/conf"/>
-    <property name="src" location="${basedir}/lua"/>
+    <property name="conf" location="/openresty/conf"/>
+    <property name="src" location="/openresty/lua"/>
 
     <property name="target-conf" location="${openresty-home}/conf"/>
     <property name="target-src" location="${openresty-home}/lua"/>
@@ -30,7 +30,7 @@
     <target name="dist" depends="init" description="generate the distribution" >
         <echo>复制安装文件</echo>
         <copy todir="${target-conf}">
-            <fileset dir="${conf}"></fileset>
+            <fileset dir="/openresty/conf"></fileset>
         </copy>
         <copy todir="${target-src}">
             <fileset dir="${src}"></fileset>

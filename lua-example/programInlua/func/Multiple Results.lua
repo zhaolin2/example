@@ -42,3 +42,8 @@ for k, v in pairs(t) do
     print(k, v)
 end
 
+a=nil
+if a==nil then
+    print("a",a)
+end
+

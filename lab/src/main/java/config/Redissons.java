@@ -12,7 +12,7 @@ public class Redissons {
     static private Config getConfig(){
         // 1. Create config object
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://127.0.0.1:7181");
+        config.useSingleServer().setAddress("redis://127.0.0.1:6379");
 
         return config;
 

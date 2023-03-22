@@ -1,12 +1,15 @@
 package shortUrl;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class HashUrlLab {
 
 
-    public static String[] ShortUrl(String url) throws NoSuchAlgorithmException {
+    public static String[] ShortUrl(String url) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         //可以自定义生成MD5加密字符传前的混合KEY
         String key = "Leejor";
         //要使用生成URL的字符
@@ -21,15 +24,14 @@ public class HashUrlLab {
                 "U", "V", "W", "X", "Y", "Z"
         };
 
-        //对传入网址进行MD5加密
-        MessageDigest digest = MessageDigest.getInstance("md5");
-        String hex = new String(digest.digest((key + url).getBytes()));
+        //对传入网址进行MD5加
+        String hex = getMd5(url);
 
         String[] resUrl = new String[4];
 
         for (int i = 0; i < 4; i++) {
             //把加密字符按照8位一组16进制与0x3FFFFFFF进行位与运算
-            int hexint = 0x3FFFFFFF & Integer.parseInt(hex.substring(i * 8, 8), 16);
+            int hexint = 0x3FFFFFFF &  (int)Long.parseLong(hex.substring(i * 8, i*8+8), 36);
             StringBuilder outChars = new StringBuilder();
             for (int j = 0; j < 6; j++) {
                 //把得到的值与0x0000003D进行位与运算，取得字符数组chars索引
@@ -45,7 +47,20 @@ public class HashUrlLab {
         return resUrl;
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(ShortUrl("www.baiodu.com"));
+    public static String getMd5(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        byte[] bytes = md5.digest(text.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder builder = new StringBuilder();
+
+        for (byte aByte : bytes) {
+            builder.append(Integer.toHexString((0x000000FF & aByte) | 0xFFFFFF00).substring(6));
+        }
+
+        return builder.toString();
+    }
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        System.out.println(Arrays.toString(ShortUrl("www.baiodu.com")));
     }
 }

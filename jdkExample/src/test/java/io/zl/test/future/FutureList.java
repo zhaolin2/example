@@ -3,8 +3,6 @@ package io.zl.test.future;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 public class FutureList {
     public static void main(String[] args) {

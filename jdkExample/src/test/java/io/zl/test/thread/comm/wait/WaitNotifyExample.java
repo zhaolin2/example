@@ -2,8 +2,6 @@ package io.zl.test.thread.comm.wait;
 
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
-
 public class WaitNotifyExample {
 
     static final Object lock=new Object();

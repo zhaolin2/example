@@ -1,8 +1,8 @@
 package com.vertx.async;
 
+import com.vertx.co.Runner;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
-import io.vertx.up.runtime.Runner;
 
 public class AsyncOther {
 

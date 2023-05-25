@@ -3,6 +3,7 @@ package com.vertx.async;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
+import io.vertx.core.Promise;
 
 public class AsyncCall {
 
@@ -17,8 +18,12 @@ public class AsyncCall {
     }
 
     private static void hiCallback(final Handler<AsyncResult<String>> handler) {
-        final Future<String> response = At.hiAsync("Huan");
-        response.onComplete(handler);
+
+        Promise<String> promise = Promise.promise();
+        promise.complete("Huan");
+
+        Future<String> future = promise.future();
+        future.onComplete(handler);
     }
 
 }

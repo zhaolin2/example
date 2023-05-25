@@ -1,7 +1,6 @@
 package io.zl.test.valid;
 
 import org.junit.Test;
-import sun.reflect.misc.MethodUtil;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;

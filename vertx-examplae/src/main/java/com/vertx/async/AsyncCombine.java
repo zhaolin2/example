@@ -1,14 +1,9 @@
 package com.vertx.async;
 
+import com.vertx.async.inner.At;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
-import io.vertx.core.Promise;
-import io.vertx.up.util.Ut;
-//import io.vertx.up.unity.Ux;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,8 +26,12 @@ public class AsyncCombine {
         final List<Future> futureList = new ArrayList<>(futures);
         return CompositeFuture.join(futureList).compose(finished -> {
             final List<T> result = new ArrayList<>();
-            Ut.itList(finished.list(),
-                    (item, index) -> result.add((T) item));
+            List<Object> list = finished.list();
+
+            for (Object o : list) {
+                result.add((T) o);
+            }
+
             return Future.succeededFuture(result);
         });
     }

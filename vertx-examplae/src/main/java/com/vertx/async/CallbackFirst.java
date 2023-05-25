@@ -1,9 +1,9 @@
 package com.vertx.async;
 
+import com.vertx.co.Runner;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-import io.vertx.up.runtime.Runner;
 
 public class CallbackFirst {
 

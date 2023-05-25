@@ -1,11 +1,11 @@
 package com.vertx.async;
 
+import com.vertx.co.Runner;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonObject;
-import io.vertx.up.runtime.Runner;
 
 /**
  * @author <a href="http://www.origin-x.cn">lang</a>

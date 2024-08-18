@@ -1,5 +1,0 @@
-{
-    "haGroup": "__HA_DEFAULT__",
-    "haEnabled": true,
-    "workerPoolSize": 30
-}

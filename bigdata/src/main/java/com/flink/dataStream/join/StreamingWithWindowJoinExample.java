@@ -71,7 +71,7 @@ public class StreamingWithWindowJoinExample {
 		DataStream<Tuple3<String, Integer, Integer>> joinedStream = runWindowJoin(grades, salaries, windowSize);
 
 		// print the results with a single thread, rather than in parallel
-		joinedStream.print().setParallelism(1);
+		joinedStream.print().setParallelism(2);
 
 		// execute program
 		env.execute("Windowed Join Example");

@@ -31,7 +31,7 @@ public class Constants {
     public static final String TOPIC = "default";
 
 //    public static final String KAFKA_BOOTSTRAP_SERVER = "node01:9092";
-    public static final String KAFKA_BOOTSTRAP_SERVER = "127.0.0.1:9092";
+    public static final String KAFKA_BOOTSTRAP_SERVER = "127.0.0.1:9093";
 
 
     public static final String KAFKA_SERIALIZER = "kafka.serializer.DefaultEncoder";

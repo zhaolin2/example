@@ -14,22 +14,32 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.sink.PrintSinkFunction;
 import org.apache.flink.streaming.api.functions.windowing.ProcessAllWindowFunction;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
+//import org.apache.flink.streaming.connectors.elasticsearch.ActionRequestFailureHandler;
+//import org.apache.flink.streaming.connectors.elasticsearch.RequestIndexer;
+//import org.apache.flink.streaming.connectors.elasticsearch7.ElasticsearchSink;
 import org.apache.flink.streaming.connectors.elasticsearch.ActionRequestFailureHandler;
 import org.apache.flink.streaming.connectors.elasticsearch.RequestIndexer;
-import org.apache.flink.streaming.connectors.elasticsearch7.ElasticsearchSink;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+//import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
+import org.apache.flink.streaming.connectors.redis.RedisSink;
+import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolConfig;
 import org.apache.flink.util.Collector;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.ActionRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.Requests;
+//import org.elasticsearch.action.ActionRequest;
+//import org.elasticsearch.action.index.IndexRequest;
+//import org.elasticsearch.client.Requests;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.geekbang.flink.project.Constants.WS_URL;
 
@@ -45,11 +55,16 @@ public class PVAndUVExample {
         System.out.println();
         Properties kafkaProps = new Properties();
         kafkaProps.setProperty("bootstrap.servers", brokers);
-        FlinkKafkaConsumer010<UserBehaviorEvent> kafka = new FlinkKafkaConsumer010<>(kafkaTopic, new UserBehaviorEventSchema(), kafkaProps);
+
+        FlinkKafkaConsumer<UserBehaviorEvent> kafka = new FlinkKafkaConsumer<>(kafkaTopic, new UserBehaviorEventSchema(), kafkaProps);
         kafka.setStartFromLatest();
         kafka.setCommitOffsetsOnCheckpoints(false);
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+//        env.setRestartStrategy(RestartStrategies.fixedDelayRestart(
+//                3,
+//                10 * 1000
+//        ));
 
         kafka.assignTimestampsAndWatermarks(
                 WatermarkStrategy
@@ -97,7 +112,13 @@ public class PVAndUVExample {
 
 //        uvCounter.addSink(esSinkBuilder.build());
 
-        uvCounter.addSink(new WebsocketSink(WS_URL));
+//        uvCounter.addSink(new WebsocketSink(WS_URL));
+        FlinkJedisPoolConfig conf = new FlinkJedisPoolConfig.Builder().setHost("127.0.0.1").setPort(6379).setPassword("jhkdjhkjdhsIUTYURTU_iC5aNa").build();
+
+
+        uvCounter.addSink(new PrintSinkFunction<>());
+        uvCounter.addSink(new RedisSink<Tuple4<Long, Long, Long, Integer>>(conf, new RedisExampleMapper()));
+
 
         env.execute(parameterTool.get("appName", "PVAndUVExample"));
 

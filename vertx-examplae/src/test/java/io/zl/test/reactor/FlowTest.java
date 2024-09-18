@@ -1,6 +1,5 @@
 package io.zl.test.reactor;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.junit.Test;
 import org.reactivestreams.Subscription;
 import reactor.core.Disposable;

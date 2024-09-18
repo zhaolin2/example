@@ -2,8 +2,6 @@ package com.vertx.cache;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.LoadingCache;
-import com.sun.corba.se.impl.orbutil.graph.Graph;
 
 import java.util.concurrent.TimeUnit;
 

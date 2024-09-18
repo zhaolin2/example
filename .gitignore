@@ -1,2 +1,10 @@
 .class
+.idea
+
+
+bigdata/.idea
 bigdata/project-1-pv-uv-computing/target
+
+bigdata/project-2-fraud-detection/flink-job/target
+
+vertx-examplae/target
